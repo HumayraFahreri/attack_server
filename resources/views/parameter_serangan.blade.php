@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex h-screen bg-[#C9C9C9]">
+<div class="min-h-screen flex flex-col md:flex-row bg-[#C9C9C9]">
+
     <!-- Sidebar -->
-    <aside class="w-64 bg-[#C9C9C9] text-[#5A5252] flex flex-col border-r border-[#5A5252]">
+    <aside class="fixed top-0 left-0 h-screen z-50 w-full md:w-64 bg-[#C9C9C9] text-[#5A5252] flex-shrink-0 flex flex-col justify-between fixed left-0 top-0">
         <div class="p-4 flex flex-col items-center border-b border-[#5A5252]">
             <img src="{{ asset('image/ABH-LOGO-HORIZONTAL_RED.png') }}" class="w-32 h-auto mb-2">
             @auth
-                <p class="text-sm font-medium text-[#5A5252] mt-2">
+                <p class="text-lg font-medium text-[#5A5252] mt-2">
                     Welcome, <span class="font-semibold">{{ auth()->user()->name ?? auth()->user()->email ?? 'User' }}</span>
                 </p>
             @endauth
@@ -20,7 +21,7 @@
                 </svg>
                 Dashboard
             </a>
-            <a href="{{ route('parameter.serangan') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
+            <a href="{{ route('attack-server.index') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
@@ -41,21 +42,21 @@
         </nav>
 
 
-        <div class="p-4 border-t border-[#5A5252]/20">
+        <div class="p-4 border-t border-[#5A5252]">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-white bg-[#BF5A4B] hover:bg-[#BF5A4B]/90 transition-all duration-200">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button type="submit" class="w-full flex items-center justify-center py-2 px-4 rounded-lg text-white bg-[#BF5A4B] hover:bg-[#BF5A4B]/90 transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                     </svg>
-                    <span class="text-sm">Log Out</span>
+                    Log Out
                 </button>
             </form>
         </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto p-6">
+    <main class="flex-1 p-6 overflow-y-auto bg-white/80 ml-64">
         <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-[#5A5252]/10 overflow-hidden">
             <!-- Header -->
             <div class="bg-[#5A5252]/5 p-6 border-b border-[#5A5252]/10">
@@ -64,7 +65,7 @@
             </div>
 
             <!-- Form -->
-            <form method="POST" action="{{ route('parameter.serangan.kirim') }}" class="p-6 space-y-5">
+            <form method="POST" action="{{ route('parameter.serangan.store') }}" class="p-6 space-y-5">
                 @csrf
 
                 <!-- Attack Name -->
@@ -77,7 +78,7 @@
                         type="text" 
                         name="nama_serangan" 
                         id="nama_serangan" 
-                        class="block w-full border border-[#5A5252]/20 rounded-md py-2 px-3 text-sm placeholder-[#5A5252]/40 focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
+                        class="block w-full border border-[#5A5252]/70 rounded-md py-2 px-3 text-sm placeholder-[#5A5252]/40 focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
                         placeholder="e.g. Main Server Attack"
                         required
                     >
@@ -114,7 +115,7 @@
                     <select 
                         id="source_server" 
                         name="source_server" 
-                        class="block w-full border border-[#5A5252]/20 rounded-md py-2 px-3 text-sm text-[#5A5252] focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
+                        class="block w-full border border-[#5A5252]/70 rounded-md py-2 px-3 text-sm text-[#5A5252] focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
                         required
                     >
                         <option value="" selected disabled hidden>Select server...</option>
@@ -136,7 +137,7 @@
                         type="text" 
                         name="ip_target" 
                         id="ip_target" 
-                        class="block w-full border border-[#5A5252]/20 rounded-md py-2 px-3 text-sm placeholder-[#5A5252]/40 focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
+                        class="block w-full border border-[#5A5252]/70 rounded-md py-2 px-3 text-sm placeholder-[#5A5252]/40 focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
                         placeholder="e.g. 192.168.1.1"
                         required
                     >
@@ -152,7 +153,7 @@
                         type="number" 
                         name="port" 
                         id="port" 
-                        class="block w-full border border-[#5A5252]/20 rounded-md py-2 px-3 text-sm placeholder-[#5A5252]/40 focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
+                        class="block w-full border border-[#5A5252]/70 rounded-md py-2 px-3 text-sm placeholder-[#5A5252]/40 focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
                         placeholder="e.g. 80"
                         required
                     >
@@ -168,7 +169,7 @@
                         type="number" 
                         name="durasi" 
                         id="durasi" 
-                        class="block w-full border border-[#5A5252]/20 rounded-md py-2 px-3 text-sm placeholder-[#5A5252]/40 focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
+                        class="block w-full border border-[#5A5252]/70 rounded-md py-2 px-3 text-sm placeholder-[#5A5252]/40 focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
                         placeholder="e.g. 60"
                         required
                     >
@@ -178,12 +179,11 @@
                 <div class="pt-4">
                     <button 
                         type="submit" 
-                        class="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-[#BF5A4B] hover:bg-[#BF5A4B]/90 text-white font-medium rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-[#BF5A4B]/50 focus:ring-offset-1"
-                    >
+                        class="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-[#BF5A4B] hover:bg-[#BF5A4B]/90 text-white font-medium rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-[#BF5A4B]/50 focus:ring-offset-1">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
-                        Launch Attack
+                        Save Attack
                     </button>
                 </div>
             </form>

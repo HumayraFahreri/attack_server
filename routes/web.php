@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ParameterSeranganController;
+use App\Http\Controllers\AttackServerController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AttackMonitoringController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,9 +19,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //attack server
+    Route::get('/attack-server', [AttackServerController::class, 'index'])->name('attack-server.index');
+    Route::get('/attack-server/create', [AttackServerController::class, 'create'])->name('attack-server.create');
+    Route::post('/attack-server', [AttackServerController::class, 'store'])->name('attack-server.store');
+
     // parameter serangan
     Route::get('/parameter-serangan', [ParameterSeranganController::class, 'index'])->name('parameter.serangan');
-    Route::post('/parameter-serangan', [ParameterSeranganController::class, 'kirim'])->name('parameter.serangan.kirim');
+    Route::post('/parameter-serangan', [ParameterSeranganController::class, 'store'])->name('parameter.serangan.store');
+
+    //detail serangan
+    Route::get('/attack/{id}', [AttackServerController::class, 'show'])->name('attack.show');
+
+    //recent attack
+    Route::get('/recent-attacks', [AttackMonitoringController::class, 'index'])->name('recent-attacks');
+    Route::post('/filter-attacks', [AttackMonitoringController::class, 'filter'])->name('attacks.filter');
 
 });
 
