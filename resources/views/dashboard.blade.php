@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen flex flex-col md:flex-row bg-[#C9C9C9]">
+<div class="flex min-h-screen flex flex-col md:flex-row bg-[#C9C9C9]">
 
     {{-- Sidebar --}}
     <aside class="fixed top-0 left-0 h-screen z-50 w-full md:w-64 bg-[#C9C9C9] text-[#5A5252] flex-shrink-0 flex flex-col justify-between fixed left-0 top-0">
-        <div class="p-4 flex flex-col items-center border-b border-[#5A5252]">
-            <img src="{{ asset('image/ABH-LOGO-HORIZONTAL_RED.png') }}" class="w-32 h-auto mb-2">
+        <div class="p-4 text-center border-b border-[#5A5252]">
+            <img src="{{ asset('image/ABH-LOGO-HORIZONTAL_RED.png') }}" class="w-32 mx-auto mb-2">
             @auth
                 <p class="text-lg font-medium text-[#5A5252] mt-2">
                     Welcome, <span class="font-semibold">{{ auth()->user()->name ?? auth()->user()->email ?? 'User' }}</span>
@@ -27,13 +27,13 @@
                 </svg>
                 Attack Server
             </a>
-            <a href="#" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
+            <a href="{{ route('recent-attacks') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                 </svg>
-                Attack History
+                Monitor Recent Victim
             </a>
-            <a href="#" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
+            <a href="{{ route('user-management') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                 </svg>

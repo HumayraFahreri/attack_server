@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\AttackServerController;
 use Illuminate\Http\Request;
 use App\Models\AttackLog;
 
@@ -19,7 +20,7 @@ class AttackMonitoringController extends Controller
 
         $attacks = AttackLog::orderBy('created_at', 'desc')->paginate(10); 
 
-        return view('recent-attack', [ 
+        return view('recent-attack.index  ', [ 
             'stats' => $stats,
             'attacks' => $attacks
         ]);

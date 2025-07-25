@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ParameterSeranganController;
-use App\Http\Controllers\AttackServerController;
+use App\Http\AttackServerController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AttackMonitoringController;
+use App\Http\AttackMonitoringController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/recent-attacks', [AttackMonitoringController::class, 'index'])->name('recent-attacks');
     Route::post('/filter-attacks', [AttackMonitoringController::class, 'filter'])->name('attacks.filter');
 
+    //user management
+    Route::get('/user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user-management');
+
+    //user management add
+    Route::get('/user-management-add', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
+    Route::get ('users/{user}/roles', [RoleController::class,'assignRoleForm'])
+                ->name('users.roles.edit');
+            Route::post('users/{user}/roles', [RoleController::class,'assignRole'])
+                ->name('users.roles.update');
+
+            Route::resource('roles', RoleController::class);
 });
 
 require __DIR__.'/auth.php';
