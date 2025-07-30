@@ -27,11 +27,11 @@
                 </svg>
                 Attack Server
             </a>
-            <a href="#" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
+            <a href="{{ route('recent-attacks') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                 </svg>
-                Attack History
+                Recent Attack
             </a>
             <a href="#" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@
         <div class="p-4 border-t border-[#5A5252]">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="w-full flex items-center justify-center py-2 px-4 rounded-lg text-white bg-[#BF5A4B] hover:bg-[#BF5A4B]/90 transition-colors">
+                <button type="submit" class="w-full flex items-center justify-center py-2 px-4 rounded-lg text-white bg-[#4F46E5] hover:bg-[#3b35a9] transition-colors">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                     </svg>
@@ -65,7 +65,7 @@
             </div>
 
             <!-- Form -->
-            <form method="POST" action="{{ route('parameter.serangan.store') }}" class="p-6 space-y-5">
+            <form method="POST" action="{{ route('attack-server.store') }}" class="p-6 space-y-5">
                 @csrf
 
                 <!-- Attack Name -->
@@ -175,11 +175,27 @@
                     >
                 </div>
 
+                <!-- datasize -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-[#5A5252] flex items-center justify-between">
+                        <span>Data Size (MB)</span>
+                        <span class="text-xs text-[#5A5252]/50">Required</span>
+                    </label>
+                    <input 
+                        type="number" 
+                        name="data_size" 
+                        id="data_size" 
+                        class="block w-full border border-[#5A5252]/70 rounded-md py-2 px-3 text-sm placeholder-[#5A5252]/40 focus:border-[#BF5A4B] focus:ring-1 focus:ring-[#BF5A4B]/30 transition"
+                        placeholder="e.g. 100"
+                        required
+                    >
+                </div>
+
                 <!-- Submit Button -->
                 <div class="pt-4">
                     <button 
                         type="submit" 
-                        class="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-[#BF5A4B] hover:bg-[#BF5A4B]/90 text-white font-medium rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-[#BF5A4B]/50 focus:ring-offset-1">
+                        class="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-[#4F46E5] hover:bg-[#3b35a9] text-white font-medium rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-[#BF5A4B]/50 focus:ring-offset-1">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>

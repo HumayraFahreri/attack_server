@@ -20,11 +20,11 @@ return new class extends Migration
         $table->string('ip_target');          // e.g. 192.168.1.1
         $table->integer('port');              // e.g. 80
         $table->integer('durasi');            // dalam detik
+        $table->integer('data_size'); // dalam MB
+        $table->enum('status', ['Pending', 'Completed', 'Failed'])->default('Pending');
         $table->timestamps();
     });
 }
-
-
 
     /**
      * Reverse the migrations.

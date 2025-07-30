@@ -31,7 +31,7 @@
                     <div class="bg-white rounded-lg shadow-sm border border-[#5A5252]/50 p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-semibold text-[#5A5252]">{{ $attack->nama_serangan }}</h2>
-                            <span class="text-xs text-[#5A5252]/50">Created: {{ $attack->created_at->format('M d, Y H:i') }}</span>
+                            <span class="text-xs text-[#5A5252]/50">Created: {{ optional($attack->created_at)->format('M d, Y H:i') }}</span>
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -41,15 +41,15 @@
                                 <div class="space-y-3">
                                     <div>
                                         <p class="text-xs text-[#5A5252]/50 mb-1">Attack Type</p>
-                                        <p class="text-sm font-medium text-[#5A5252]">{{ $attack->type ?? 'TCP Flood' }}</p>
+                                        <p class="text-sm font-medium text-[#5A5252]">{{ $attack->dos_type }}</p>
                                     </div>
                                     <div>
                                         <p class="text-xs text-[#5A5252]/50 mb-1">Source Server</p>
-                                        <p class="text-sm font-medium text-[#5A5252]">{{ $attack->source ?? 'Zeus' }}</p>
+                                        <p class="text-sm font-medium text-[#5A5252]">{{ $attack->source_server }}</p>
                                     </div>
                                     <div>
                                         <p class="text-xs text-[#5A5252]/50 mb-1">Data Size</p>
-                                        <p class="text-sm font-medium text-[#5A5252]">{{ $attack->data_size ?? '10' }} MB</p>
+                                        <p class="text-sm font-medium text-[#5A5252]">{{ $attack->data_size }} MB</p>
                                     </div>
                                 </div>
                             </div>
@@ -80,25 +80,30 @@
                         <h3 class="text-md font-medium text-[#5A5252] mb-4">Execution Timeline</h3>
                         <div class="space-y-4">
                             <div class="flex items-start gap-3">
-                                <div class="mt-1 flex-shrink-0 h-2 w-2 rounded-full bg-[#BF5A4B]"></div>
-                                <div>
-                                    <p class="text-sm font-medium text-[#5A5252]">Attack initiated</p>
-                                    <p class="text-xs text-[#5A5252]/50">{{ $attack->created_at->format('H:i:s') }}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="mt-1 flex-shrink-0 h-2 w-2 rounded-full bg-[#BF5A4B]"></div>
+                                <div class="mt-1 flex-shrink-0 h-2 w-2 rounded-full bg-[#4F46E5]"></div>
                                 <div>
                                     <p class="text-sm font-medium text-[#5A5252]">Packets flooding</p>
-                                    <p class="text-xs text-[#5A5252]/50">{{ $attack->created_at->addSeconds(5)->format('H:i:s') }}</p>
-                                    <p class="text-xs text-[#5A5252]/70 mt-1">24,532 packets sent (10 MB)</p>
+                                    <p class="text-xs text-[#5A5252]/50">
+                                        @if($attack->created_at)
+                                            {{ $attack->created_at->addSeconds(5)->format('H:i:s') }}
+                                        @endif
+                                    </p>
+                                    {{-- GUNAKAN DATA DARI $stats --}}
+                                    <p class="text-xs text-[#5A5252]/70 mt-1">{{ number_format($stats['packets_sent']) }} packets sent ({{ $stats['data_transferred'] }} MB)</p>
                                 </div>
                             </div>
+                            
                             <div class="flex items-start gap-3">
-                                <div class="mt-1 flex-shrink-0 h-2 w-2 rounded-full bg-[#BF5A4B]"></div>
+                                <div class="mt-1 flex-shrink-0 h-2 w-2 rounded-full bg-[#4F46E5]"></div>
                                 <div>
-                                    <p class="text-sm font-medium text-[#5A5252]">Attack completed</p>
-                                    <p class="text-xs text-[#5A5252]/50">{{ $attack->created_at->addSeconds($attack->durasi)->format('H:i:s') }}</p>
+                                    <p class="text-sm font-medium text-[#5A5252]">
+                                        @if($attack->created_at)
+                                            Attack completed at {{ $attack->created_at->addSeconds($attack->durasi)->format('H:i:s') }}
+                                        @else
+                                            Attack completed
+                                        @endif
+                                    </p>
+                                    <p class="text-xs text-[#5A5252]/70 mt-1">Attack complete in {{ $attack->formatted_duration }}</p>                                  
                                 </div>
                             </div>
                         </div>
@@ -107,23 +112,6 @@
 
                 <!-- Right Column - Stats & Actions -->
                 <div class="space-y-6">
-                    <!-- Status Card -->
-                    <div class="bg-white rounded-lg shadow-sm border border-[#5A5252]/10 p-6">
-                        <h3 class="text-md font-medium text-[#5A5252] mb-4">Attack Status</h3>
-                        <div class="flex items-center gap-4">
-                            <div class="relative">
-                                <div class="h-14 w-14 rounded-full bg-[#BF5A4B]/10 flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#BF5A4B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-[#5A5252]">Completed successfully</p>
-                                <p class="text-xs text-[#5A5252]/50 mt-1">{{ $attack->durasi }} seconds duration</p>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Statistics Card -->
                     <div class="bg-white rounded-lg shadow-sm border border-[#5A5252]/10 p-6">
@@ -131,15 +119,21 @@
                         <div class="space-y-3">
                             <div>
                                 <p class="text-xs text-[#5A5252]/50 mb-1">Packets Sent</p>
-                                <p class="text-sm font-medium text-[#5A5252]">24,532</p>
+                                <p class="text-sm font-medium text-[#5A5252]">
+                                    {{ number_format($stats['packets_sent'], 0) }}
+                                </p>
                             </div>
                             <div>
                                 <p class="text-xs text-[#5A5252]/50 mb-1">Data Transferred</p>
-                                <p class="text-sm font-medium text-[#5A5252]">10 MB</p>
+                                <p class="text-sm font-medium text-[#5A5252]">
+                                    {{ $stats['data_transferred'] }} MB
+                                </p>
                             </div>
                             <div>
                                 <p class="text-xs text-[#5A5252]/50 mb-1">Average Rate</p>
-                                <p class="text-sm font-medium text-[#5A5252]">4,906 pkt/s</p>
+                                <p class="text-sm font-medium text-[#5A5252]">
+                                    {{ number_format($stats['average_rate'], 0) }} pkt/s
+                                </p>                            
                             </div>
                         </div>
                     </div>
@@ -148,7 +142,7 @@
                     <div class="bg-white rounded-lg shadow-sm border border-[#5A5252]/10 p-6">
                         <h3 class="text-md font-medium text-[#5A5252] mb-4">Actions</h3>
                         <div class="space-y-3">
-                            <button class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#BF5A4B] text-white text-sm font-medium rounded hover:bg-[#BF5A4B]/90 transition-colors">
+                            <button class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#4F46E5] hover:bg-[#3b35a9]  text-white text-sm font-medium rounded transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                 </svg>

@@ -4,7 +4,7 @@
 <div class="flex min-h-screen bg-white/80">
 
     {{-- Sidebar --}}
-    <aside class="fixed top-0 left-0 h-screen z-50 w-full md:w-64 bg-[#C9C9C9] text-[#5A5252] flex-shrink-0 flex flex-col justify-between fixed left-0 top-0">
+    <aside class="fixed top-0 left-0 h-screen z-50 w-full md:w-64 bg-[#fff] text-[#5A5252] flex-shrink-0 flex flex-col justify-between fixed left-0 top-0">
         <div class="p-4 flex flex-col items-center border-b border-[#5A5252]">
             <img src="{{ asset('image/ABH-LOGO-HORIZONTAL_RED.png') }}" class="w-32 h-auto mb-2">
             @auth
@@ -27,11 +27,11 @@
                 </svg>
                 Attack Server
             </a>
-            <a href="#" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
+            <a href="{{ route('recent-attacks') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                 </svg>
-                Attack History
+                Recent Attack
             </a>
             <a href="#" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +44,7 @@
         <div class="p-4 border-t border-[#5A5252]">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="w-full flex items-center justify-center py-2 px-4 rounded-lg text-white bg-[#BF5A4B] hover:bg-[#BF5A4B]/90 transition-colors">
+                <button type="submit" class="w-full flex items-center justify-center py-2 px-4 rounded-lg text-white bg-[#4F46E5] hover:bg-[#3b35a9] transition-colors">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                     </svg>
@@ -55,18 +55,18 @@
     </aside>
 
     {{-- Main content --}}
-<main class="flex-1 p-6 overflow-y-auto bg-white/80 ml-64">
-    <div class="mb-8">
-        <h1 class="text-xl font-semibold text-[#5A5252]">Recent Attack Monitoring</h1>
-    </div>
+        <main class="flex-1 p-6 overflow-y-auto bg-gray-400/30 ml-64">
+            <div class="mb-8">
+                <h1 class="text-xl font-semibold text-[#5A5252]">Recent Attack Monitoring</h1>
+            </div>
 
     {{-- Stats Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
-        <div class="bg-white p-6 rounded-lg shadow-2xl border-l-4 border-[#BF5A4B]">
+        <div class="bg-white p-6 rounded-lg shadow-2xl border-l-4 border-pink-500">
             <p class="text-sm text-[#5A5252]">Total Attacks</p>
             <h3 class="text-xl font-bold text-[#5A5252]">{{ number_format($stats['total_attacks']) }}</h3>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow-2xl border-l-4 border-[#5A5252]">
+        <div class="bg-white p-6 rounded-lg shadow-2xl border-l-4 border-green-500">
             <p class="text-sm text-[#5A5252]">Blocked</p>
             <h3 class="text-xl font-bold text-[#5A5252]">{{ number_format($stats['blocked_attacks']) }}</h3>
         </div>
@@ -131,7 +131,7 @@
 
                 <!-- Button -->
                 <div class="flex items-end">
-                <button id="apply_filters" class="w-full text-sm bg-[#BF5A4B] hover:bg-[#a84a3b] text-white py-2 px-4 rounded transition-colors duration-200">
+                <button id="apply_filters" class="w-full text-sm bg-[#000]/50 hover:bg-[#000]/60 text-white py-2 px-4 rounded transition-colors duration-200">
                     Apply Filters
                 </button>
                 </div>

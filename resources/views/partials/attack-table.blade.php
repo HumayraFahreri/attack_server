@@ -1,6 +1,6 @@
 <div class="overflow-x-auto">
     <table class="min-w-full divide-y divide-[#C9C9C9]">
-        <thead class="bg-[#5A5252]">
+        <thead class="bg-[#000]/50">
             <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Timestamp</th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Attack IP</th>
