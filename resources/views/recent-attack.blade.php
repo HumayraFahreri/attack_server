@@ -6,7 +6,7 @@
     {{-- Sidebar --}}
     <aside class="fixed top-0 left-0 h-screen z-50 w-full md:w-64 bg-[#fff] text-[#5A5252] flex-shrink-0 flex flex-col justify-between fixed left-0 top-0">
         <div class="p-4 flex flex-col items-center border-b border-[#5A5252]">
-            <img src="{{ asset('image/ABH-LOGO-HORIZONTAL_RED.png') }}" class="w-32 h-auto mb-2">
+            <img src="{{ asset('image/logo.jpeg') }}" class="w-12 h-auto mb-1">
             @auth
                 <p class="text-lg font-medium text-[#5A5252] mt-2">
                     Welcome, <span class="font-semibold">{{ auth()->user()->name ?? auth()->user()->email ?? 'User' }}</span>
@@ -15,7 +15,7 @@
         </div>
 
         <nav class="flex-1 p-4 space-y-1">
-            <a href="{{ route('dashboard') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-[#5A5252]/10 transition-colors font-medium">
+            <a href="{{ route('dashboard') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-[#5A5252]/10 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                 </svg>
@@ -33,7 +33,7 @@
                 </svg>
                 Recent Attack
             </a>
-            <a href="#" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
+            <a href="{{ route('users.index') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                 </svg>
@@ -57,7 +57,7 @@
     {{-- Main content --}}
         <main class="flex-1 p-6 overflow-y-auto bg-gray-400/30 ml-64">
             <div class="mb-8">
-                <h1 class="text-xl font-semibold text-[#5A5252]">Recent Attack Monitoring</h1>
+                <h1 class="text-2xl font-semibold text-[#5A5252]">Recent Attack Monitoring</h1>
             </div>
 
     {{-- Stats Cards --}}

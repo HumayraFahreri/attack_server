@@ -6,7 +6,7 @@
     <!-- Sidebar (unchanged) -->
     <aside class="fixed top-0 left-0 h-screen z-50 w-full md:w-64 bg-[#fff] text-[#5A5252] flex-shrink-0 flex flex-col justify-between fixed left-0 top-0">
         <div class="p-4 flex flex-col items-center border-b border-[#5A5252]">
-            <img src="{{ asset('image/ABH-LOGO-HORIZONTAL_RED.png') }}" class="w-32 h-auto mb-2">
+            <img src="{{ asset('image/logo.jpeg') }}" class="w-12 h-auto mb-1">
             @auth
                 <p class="text-lg font-medium text-[#5A5252] mt-2">
                     Welcome, <span class="font-semibold">{{ auth()->user()->name ?? auth()->user()->email ?? 'User' }}</span>
@@ -33,7 +33,7 @@
                 </svg>
                 Recent Attack
             </a>
-            <a href="#" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
+            <a href="{{ route('users.index') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-400/30 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                 </svg>
@@ -60,7 +60,7 @@
             <!-- Header Section -->
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
                 <div>
-                    <h1 class="text-2xl font-bold text-[#5A5252]">Attack Server</h1>
+                    <h1 class="text-2xl font-semibold text-[#5A5252]">Attack Server</h1>
                     <p class="text-sm text-[#5A5252]/80 mt-1">Manage and execute planned attacks</p>
                 </div>
                 <div class="mt-4 md:mt-0">
@@ -133,7 +133,7 @@
                                                 Execute
                                             </button>
                                         </form>
-                                        <a href="{{ route('attack-server.store', $attack->id) }}" class="flex items-center px-4 py-2 bg-[#5A5252]/10 hover:bg-[#5A5252]/20 rounded-md text-[#5A5252] text-sm font-medium transition-colors">
+                                        <a href="{{ route('attack-server.edit', $attack->id) }}" class="flex items-center px-4 py-2 bg-[#5A5252]/10 hover:bg-[#5A5252]/20 rounded-md text-[#5A5252] text-sm font-medium transition-colors">
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                             </svg>

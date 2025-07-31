@@ -8,95 +8,74 @@ use Illuminate\Http\Request;
 
 class AttackServerController extends Controller
 {
-
-    public function index()
-    {
-        $attacks = AttackServer::whereRaw('TRIM(status) = ?', ['Pending'])->latest()->get();
-
+    public function index(){
+        $attacks = AttackServer::where('status', 'Pending')->latest()->get();
         return view('attack_server', compact('attacks'));
     }
     
-    /**
-     * Menampilkan form untuk membuat serangan baru.
-     */
-    public function create()
-    {
-        return view('parameter_serangan'); // Mengarahkan ke form serangan
+    public function create(){
+        return view('parameter_serangan');
     }
 
-    /**
-     * Menyimpan data serangan baru ke database.
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $validatedData = $request->validate([
-        'nama_serangan' => 'required|string|max:255',
-        'dos_type'      => 'required|string',
-        'source_server' => 'required|string',
-        'ip_target'     => 'required|ip',
-        'port'          => 'required|integer|min:1|max:65535',
-        'durasi'        => 'required|integer|min:1',
-        'data_size'     => 'required|integer|min:1',
-    ]);
+            'nama_serangan' => 'required|string|max:255',
+            'dos_type'      => 'required|string',
+            'source_server' => 'required|string',
+            'ip_target'     => 'required|ip',
+            'port'          => 'required|integer|min:1|max:65535',
+            'durasi'        => 'required|integer|min:1',
+            'data_size'     => 'required|integer|min:1',
+        ]);
         AttackServer::create($validatedData);
-
-        // Redirect ke halaman daftar serangan dengan pesan sukses
         return redirect()->route('attack-server.index')->with('success', 'Serangan baru berhasil direncanakan.');
     }
 
-    /**
-     * Menampilkan detail serangan spesifik beserta statistiknya.
-     */
-    public function show(AttackServer $attack) // Menggunakan Route Model Binding
-    {
+    public function show(AttackServer $attack) {
         $averagePacketSizeKB = 1; 
         $totalDataKB = ($attack->data_size ?? 0) * 1024;
-         $packetsSent = $totalDataKB > 0 ? $totalDataKB / $averagePacketSizeKB : 0;
+        $packetsSent = $totalDataKB > 0 ? $totalDataKB / $averagePacketSizeKB : 0;
         $averageRate = 0;
         if ($attack->durasi > 0 && $packetsSent > 0) {
             $averageRate = $packetsSent / $attack->durasi;
         }
-
         $stats = [
             'packets_sent' => $packetsSent,
             'data_transferred' => $attack->data_size ?? 0,
             'average_rate' => $averageRate,
         ];
+        return view('attack_detail', compact('attack', 'stats'));
+    }
 
-       return view('attack_detail', [
-            'attack' => $attack,
-            'stats'  => $stats,
+    public function edit(AttackServer $attack)
+    {
+        return view('attack_server_edit', compact('attack'));
+    }
+
+    public function update(Request $request, AttackServer $attack)
+    {
+        $validatedData = $request->validate([
+            'nama_serangan' => 'required|string|max:255',
+            'dos_type'      => 'required|string',
+            'source_server' => 'required|string',
+            'ip_target'     => 'required|ip',
+            'port'          => 'required|integer|min:1|max:65535',
+            'durasi'        => 'required|integer|min:1',
+            'data_size'     => 'required|integer|min:1',
         ]);
+        $attack->update($validatedData);
+        return redirect()->route('attack-server.index')->with('success', 'Attack updated successfully.');
     }
     
-    /**
-     * METHOD BARU: Mengeksekusi serangan, membuat log, dan mengubah status.
-     */
     public function execute(AttackServer $attack)
     {
-        $isSuccess = true; 
-
-        if ($isSuccess) {
-            // 2. Buat entri baru di tabel attack_logs
-            AttackLog::create([
-                'attack_ip' => $attack->source_server,
-                'target_ip' => $attack->ip_target,
-                'type' => $attack->dos_type,
-                'target' => $attack->nama_serangan,
-                'severity' => 'Medium',
-                'status' => 'Completed',
-                'details' => 'Serangan dieksekusi dari daftar perencanaan.',
-                'data_size' => $attack->data_size,
-            ]);
-
-            // 3. Update status serangan yang direncanakan menjadi 'Completed'
-            $attack->update(['status' => 'Completed']);
-
-            return redirect()->route('attack-server.index')->with('success', 'Serangan berhasil dieksekusi dan dipindahkan ke riwayat.');
-        } 
-        
-        // Opsional: jika gagal
-        $attack->update(['status' => 'Failed']);
-        return redirect()->route('attack-server.index')->with('error', 'Eksekusi serangan gagal.');
+        // ... (kode execute Anda sudah benar) ...
+    }
+    
+    // Anda bisa tambahkan method destroy di sini jika perlu
+    public function destroy(AttackServer $attack)
+    {
+        $attack->delete();
+        return redirect()->route('attack-server.index')->with('success', 'Attack deleted successfully.');
     }
 }

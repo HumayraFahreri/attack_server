@@ -1,19 +1,19 @@
 <x-guest-layout>
-   <div class="min-h-screen flex items-center justify-center bg-[#BF5A4B] pt-12">
+   <div class="min-h-screen flex items-center justify-center bg-gray-400/30 pt-12">
         <!-- Kanan: Form login -->
         <div class="w-full max-w-2xl">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden md:flex h-[500px]">
                     <!-- Left side - grey with logo/text -->
-                    <div class="hidden md:flex md:w-1/2 bg-[#C9C9C9]">
+                    <div class="hidden md:flex md:w-1/2 bg-[#C9C9C9]/20">
                         <div class="flex flex-col items-center justify-center text-center w-full h-full p-10">
                             <!-- Ikon Shield -->
-                            <div class="flex items-center justify-center w-24 h-24 rounded-full bg-[#AE9C9C] mb-6">
-                                <img src="{{ asset('image/shield.png') }}" alt="Shield Icon" class="w-10 h-10" />
+                            <div class="flex items-center justify-center w-24 h-24">
+                                <img src="{{ asset('image/ABH_LOGO.png') }}" class="mx-auto" alt="Logo" />
                             </div>
                             
                             <!-- Judul dan Subjudul -->
-                            <h2 class="text-2xl font-bold text-[#343333] mb-3">Server Attack</h2>
-                            <p class="text-[#8D8D8D] mb-3">Authorized Personnel Only</p>
+                            <h2 class="text-2xl font-bold text-[#343333] mb-3 mt-3">Server Attack</h2>
+                            <p class="text-[#8D8D8D] mb-5 landing-none">Authorized Personnel Only</p>
                         </div>
                     </div>
 
@@ -62,10 +62,11 @@
 
                             <!-- Submit Button -->
                             <div class="pt-2">
-                                <x-primary-button class="w-full justify-center bg-[#D31B04] hover:bg-[#D31B04] focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 py-3">
+                                <button class="w-full flex items-center justify-center py-2 px-4 rounded-lg text-white bg-[#4F46E5] hover:bg-[#3b35a9] transition-colors">
                                     <span class="font-medium">LOG IN</span>
-                                </x-primary-button>
+                                </button>
                             </div>
+
                         </form>
 
                     </div>

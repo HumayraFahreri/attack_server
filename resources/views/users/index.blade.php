@@ -4,9 +4,9 @@
 <div class="flex min-h-screen bg-white/80">
 
     {{-- Sidebar --}}
-    <aside class="fixed top-0 left-0 h-screen w-64 bg-white text-[#5A5252] flex-shrink-0 flex flex-col justify-between fixed left-0 top-0">
+    <aside class="fixed top-0 left-0 h-screen w-64 bg-white text-[#5A5252]/90 flex-shrink-0 flex flex-col justify-between fixed left-0 top-0">
         <div class="p-4 flex flex-col items-center border-b border-[#5A5252]">
-            <img src="{{ asset('image/ABH-LOGO-HORIZONTAL_RED.png') }}" class="w-32 h-auto mb-2">
+            <img src="{{ asset('image/logo.jpeg') }}" class="w-12 h-auto mb-1">
             @auth
                 <p class="text-lg font-medium text-[#5A5252] mt-2">
                     Welcome, <span class="font-semibold">{{ auth()->user()->name ?? auth()->user()->email ?? 'User' }}</span>
@@ -31,9 +31,9 @@
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                 </svg>
-                Attack History
+                Recent Attack
             </a>
-            <a href="{{ route('user-management') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-[#5A5252]/10 transition-colors font-medium">
+            <a href="{{ route('users.index') }}" class="flex items-center py-2 px-4 rounded-lg hover:bg-[#5A5252]/10 transition-colors">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                 </svg>
@@ -44,7 +44,7 @@
         <div class="p-4 border-t border-[#5A5252]">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="w-full flex items-center justify-center py-2 px-4 rounded-lg text-white bg-[#BF5A4B] hover:bg-[#BF5A4B]/90 transition-colors">
+                <button type="submit" class="w-full flex items-center justify-center py-2 px-4 rounded-lg text-white bg-[#4F46E5] hover:bg-[#3b35a9] transition-colors">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                     </svg>
@@ -59,10 +59,10 @@
          <!-- Header Section -->
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
                 <div>
-                    <h1 class="text-2xl font-bold text-[#5A5252]">User Management</h1>
+                    <h1 class="text-2xl font-semibold text-[#5A5252]">User Management</h1>
                 </div>
                 <div class="mt-4 md:mt-0">
-                    <a href="{{ route('users.create') }}" class="flex items-center gap-2 px-4 py-2 bg-[#BF5A4B] hover:bg-[#BF5A4B]/90 rounded-md text-sm text-white transition-colors">
+                    <a href="{{ route('users.create') }}" class="flex items-center gap-2 px-4 py-2 bg-[#4F46E5] hover:bg-[#3b35a9] rounded-md text-sm text-white transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -79,16 +79,19 @@
             <div class="p-6 border-b border-[#C9C9C9]">
                 <div class="flex justify-between items-center">
                     <h2 class="text-lg font-semibold text-[#5A5252]">User</h2>
-                    <div class="relative">
-                        <input type="text" placeholder="Search attacks..." class="border border-[#C9C9C9] rounded-md pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#BF5A4B] focus:border-transparent">
-                        <i class="fas fa-search absolute left-3 top-3 text-[#5A5252]"></i>
-                    </div>
+                    <form action="{{ route('users.index') }}" method="GET">
+                        <div class="relative">
+                            <input type="text" name="search" id="user-search-input" value="{{ request('search') }}" placeholder="Search by name or email..." 
+                                class="border border-[#C9C9C9] rounded-md text-xs pl-5 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]">
+                            <i class="fas fa-search absolute left-3 top-3 text-[#5A5252]"></i>
+                        </div>
+                    </form>
                 </div>
             </div>
             
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-[#C9C9C9]">
-                    <thead class="bg-[#5A5252]">
+                    <thead class="bg-[#000]/50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Email</th>
@@ -101,7 +104,23 @@
                         <tr class="hover:bg-[#f5f5f5]">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#5A5252]">{{ $user->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-[#5A5252]">{{ $user->email }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <div class="flex items-center space-x-4">
+                                    {{-- Tombol Edit User --}}
+                                    <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">
+                                        Edit
+                                    </a>
+
+                                    {{-- Tombol Delete User --}}
+                                    <form method="POST" action="{{ route('users.destroy', $user) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-900 font-medium">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
                             </td>
                         </tr>
                         @endforeach
@@ -119,6 +138,21 @@
     // For example, sorting functionality for the table
     document.addEventListener('DOMContentLoaded', function() {
         // Add interactive functionality here
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('user-search-input');
+
+        // Pastikan elemen input ada di halaman
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                // Jika kotak pencarian dikosongkan oleh pengguna
+                if (this.value === '') {
+                    // Arahkan kembali ke halaman utama daftar user (tanpa filter)
+                    window.location.href = '{{ route("users.index") }}';
+                }
+            });
+        }
     });
 </script>
 @endsection
