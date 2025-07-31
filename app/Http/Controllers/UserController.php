@@ -26,7 +26,7 @@ class UserController extends Controller
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('users')->whereNull('deleted_at')
+                Rule::unique('users')
             ],
             'password' => 'required|string|min:8|confirmed',
             'roles' => 'required|array',
