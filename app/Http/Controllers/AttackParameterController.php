@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ParameterSeranganController extends Controller
+class AttackParameterController extends Controller
 {
     public function index()
     {

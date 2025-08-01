@@ -22,10 +22,6 @@ class AttackServer extends Model
         'status',
     ];
 
-    /**
-     * METHOD BARU (ACCESSOR)
-     * Mengubah durasi dari detik menjadi format jam, menit, detik.
-     */
     public function getFormattedDurationAttribute(): string
     {
         $seconds = $this->durasi;

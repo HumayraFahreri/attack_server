@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ParameterSeranganController;
+use App\Http\Controllers\AttackParameterController;
 use App\Http\Controllers\AttackServerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecentAttackController;
@@ -19,8 +19,8 @@ Route::middleware('auth')->group(function () {
 
     //attack server
     Route::resource('attack-server', AttackServerController::class)->parameters([
-    'attack-server' => 'attack'
-]);
+        'attack-server' => 'attack'
+    ]);
     Route::post('/attack-server/{attack}/execute', [AttackServerController::class, 'execute'])->name('attack-server.execute');
     
     //parameter serangan

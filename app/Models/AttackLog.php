@@ -11,7 +11,6 @@ class AttackLog extends Model
 
     /**
      * Nama tabel yang terhubung dengan model ini.
-     * Laravel biasanya bisa menebaknya, tapi lebih baik ditulis secara eksplisit.
      * @var string
      */
     protected $table = 'attack_logs'; // Sesuaikan jika nama tabel Anda berbeda
