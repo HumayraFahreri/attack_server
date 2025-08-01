@@ -14,7 +14,7 @@ class AttackServerController extends Controller
     }
     
     public function create(){
-        return view('parameter_serangan');
+        return view('attack_parameter');
     }
 
     public function store(Request $request){
