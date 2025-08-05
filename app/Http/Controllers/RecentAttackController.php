@@ -7,9 +7,9 @@ use App\Models\AttackLog;
 
 class RecentAttackController extends Controller
 {
+
     public function index()
     {
-        // <<< REVISI: Query statistik dioptimalkan menjadi 1 query
         $stats = AttackLog::query()
             ->selectRaw("count(*) as total_attacks")
             ->selectRaw("count(case when status = 'Blocked' then 1 end) as blocked_attacks")
@@ -18,7 +18,6 @@ class RecentAttackController extends Controller
             ->first();
 
         $attacks = AttackLog::orderBy('created_at', 'desc')->paginate(10); 
-
         return view('recent-attack', [ 
             'stats' => $stats,
             'attacks' => $attacks
@@ -27,8 +26,6 @@ class RecentAttackController extends Controller
 
     public function filter(Request $request)
     {
-        // Kode filter Anda sudah bagus dan tidak perlu revisi wajib.
-        // Versi `when()` di atas adalah alternatif jika Anda menyukai gayanya.
         $query = AttackLog::query();
 
         // Filter tanggal
@@ -71,5 +68,15 @@ class RecentAttackController extends Controller
             'html' => view('partials.attack-table', ['attacks' => $attacks])->render(),
             'stats' => $stats
         ]);
+    }
+
+    public function destroy (AttackLog $attack)
+    {
+        if($attack) {
+        $attack->delete();
+        return redirect()->route('recent-attacks')->with('success', 'Attack log deleted successfully.');
+        }
+
+        return redirect()->route('recent-attacks')->with('error', 'Attack log not found.'); 
     }
 }

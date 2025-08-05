@@ -9,17 +9,8 @@ class AttackLog extends Model
 {
     use HasFactory;
 
-    /**
-     * Nama tabel yang terhubung dengan model ini.
-     * @var string
-     */
-    protected $table = 'attack_logs'; // Sesuaikan jika nama tabel Anda berbeda
+    protected $table = 'attack_logs'; // Pastikan ini benar
 
-    /**
-     * Atribut yang boleh diisi secara massal (mass assignable).
-     * Penting untuk keamanan saat menggunakan metode create() atau update().
-     * @var array
-     */
     protected $fillable = [
         'attack_ip',
         'ip_target',
@@ -27,17 +18,9 @@ class AttackLog extends Model
         'target',
         'severity',
         'status',
-        'port',
-        'duration',
-        // tambahkan kolom lain yang relevan
+        'message',
     ];
 
-    /**
-     * The attributes that should be cast.
-     * Ini akan mengubah tipe data secara otomatis, misalnya tanggal menjadi objek Carbon.
-     *
-     * @var array
-     */
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',

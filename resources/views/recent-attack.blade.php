@@ -6,12 +6,12 @@
     {{-- Sidebar --}}
     @include('layouts.sidebar')
 
-    {{-- Main content --}}
+        {{-- Main content --}}
         <main class="flex-1 p-6 overflow-y-auto bg-gray-400/30 ml-64">
             <div class="mb-8">
-                <h1 class="text-2xl font-semibold text-[#5A5252]">Recent Attack Monitoring</h1>
+                <h1 class="text-xl font-semibold text-[#5A5252]">Recent Attack Monitoring</h1>
             </div>
-
+    
     {{-- Stats Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
         <div class="bg-white p-6 rounded-lg shadow-2xl border-l-4 border-pink-500">
@@ -90,12 +90,35 @@
             </div>
             </div>
 
-
         {{-- Attack Table --}}
         <div id="attack-table-container" class="bg-white shadow-lg rounded-lg overflow-hidden">
         @include('partials.attack-table', ['attacks' => $attacks])
     </div>
 </main>
+
+<!-- Modal Log -->
+<div id="logModal" class="fixed z-50 hidden inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
+        <h2 class="text-lg font-bold mb-2">Log Message</h2>
+        <p id="logMessage" class="text-sm text-gray-700 whitespace-pre-line"></p>
+        <div class="text-right mt-4">
+            <button onclick="closeLogModal()" class="px-4 py-2 text-white rounded bg-[#4F46E5] hover:bg-[#3b35a9]">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function showLogModal(message) {
+    document.getElementById('logMessage').innerText = message;
+    document.getElementById('logModal').classList.remove('hidden');
+}
+
+function closeLogModal() {
+    document.getElementById('logModal').classList.add('hidden');
+}
+</script>
 
 </div>
 @endsection
@@ -161,7 +184,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Event Delegation untuk link paginasi
-    // Ini penting karena link paginasi dibuat ulang setiap kali filter diterapkan
     tableContainer.addEventListener('click', function (e) {
         // Cek apakah yang diklik adalah link di dalam elemen paginasi
         if (e.target.tagName === 'A' && e.target.closest('.pagination')) {

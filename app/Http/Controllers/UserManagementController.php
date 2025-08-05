@@ -22,7 +22,6 @@ class UserManagementController extends Controller
             });
     }
 
-    // Ambil hasilnya, urutkan dari yang terbaru
     $users = $query->latest()->get();
 
     // Kirim data ke view
@@ -32,7 +31,6 @@ class UserManagementController extends Controller
     public function create()
     {
         $roles = Role::all(); 
-        // REVISI 2: Sesuaikan nama view menjadi 'users.create'
         return view('users.create', compact('roles'));
     }
 
@@ -42,7 +40,7 @@ class UserManagementController extends Controller
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', 'max:255', Rule::unique('users')],
             'password' => 'required|string|min:8|confirmed',
-            'roles' => 'sometimes|array', // Ganti jadi 'sometimes' agar tidak wajib
+            'roles' => 'sometimes|array', 
             'roles.*' => 'exists:roles,name'
         ]);
 
@@ -59,7 +57,6 @@ class UserManagementController extends Controller
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
 
-    // TAMBAHAN: Method yang dibutuhkan oleh Route::resource
     public function edit(User $user)
     {
         $roles = Role::all();

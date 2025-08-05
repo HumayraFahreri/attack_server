@@ -6,6 +6,8 @@ use App\Http\Controllers\AttackServerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecentAttackController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\ManageDosController;
+use App\Http\Controllers\SourceServerTypeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,9 +32,27 @@ Route::middleware('auth')->group(function () {
     //recent attack
     Route::get('/recent-attacks', [RecentAttackController::class, 'index'])->name('recent-attacks');
     Route::post('/filter-attacks', [RecentAttackController::class, 'filter'])->name('attacks.filter');
+     Route::delete('/attacks/{attack}', [RecentAttackController::class, 'destroy'])->name('attacks.destroy');
 
     // user management
     Route::resource('users', App\Http\Controllers\UserManagementController::class);
+
+    // --- mengelola DOS Type ---
+    Route::prefix('dos-types')->controller(ManageDosController::class)->group(function () {
+        Route::get('/', 'index')->name('dos-types.index');
+        Route::post('/', 'store')->name('dos-types.store');
+        Route::put('/{dosType}', 'update')->name('dos-types.update');
+        Route::delete('/{dosType}', 'destroy')->name('dos-types.destroy');
+    });
+
+    // Manage Source Server Type
+    Route::prefix('source-server-types')->controller(SourceServerTypeController::class)->group(function () {
+        Route::get('/', 'index')->name('source-types.index');
+        Route::post('/', 'store')->name('source-types.store');
+        Route::put('/{sourceServerType}', 'update')->name('source-types.update');
+        Route::delete('/{sourceServerType}', 'destroy')->name('source-types.destroy');
+    });
+
 });
 
 require __DIR__.'/auth.php';

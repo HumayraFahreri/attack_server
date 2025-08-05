@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AttackServer;
-use App\Models\AttackLog; 
+use App\Models\AttackLog;
+use App\Models\DosType;
+use App\Models\SourceServerType;
+
 use Illuminate\Http\Request;
 
 class AttackServerController extends Controller
@@ -14,7 +17,13 @@ class AttackServerController extends Controller
     }
     
     public function create(){
-        return view('attack_parameter');
+        $dosTypes = DosType::orderBy('name')->get();
+        $sourceServerTypes = SourceServerType::orderBy('name')->get();
+
+        return view('attack_parameter', [
+            'dosTypes'          => $dosTypes,
+            'sourceServerTypes' => $sourceServerTypes,
+        ]);
     }
 
     public function store(Request $request){
@@ -49,8 +58,14 @@ class AttackServerController extends Controller
 
     public function edit(AttackServer $attack)
     {
-        return view('attack_server_edit', compact('attack'));
-    }
+        $dosTypes = DosType::orderBy('name')->get();
+        $sourceServerTypes = SourceServerType::orderBy('name')->get();
+
+        return view('attack_server_edit', [ // Sesuaikan nama view jika perlu
+            'attack' => $attack,
+            'dosTypes' => $dosTypes,
+            'sourceServerTypes' => $sourceServerTypes,
+    ]);    }
 
     public function update(Request $request, AttackServer $attack)
     {
