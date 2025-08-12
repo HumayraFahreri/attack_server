@@ -82,7 +82,7 @@
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                                                 </svg>
-                                                Execute
+                                                Execute  
                                             </button>
                                         </form>
                                         <a href="{{ route('attack-server.edit', $attack->id) }}" class="flex items-center px-4 py-2 bg-[#5A5252]/10 hover:bg-[#5A5252]/20 rounded-md text-[#5A5252] text-sm font-medium transition-colors">

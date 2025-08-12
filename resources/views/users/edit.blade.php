@@ -6,7 +6,7 @@
     {{-- Sidebar --}}
     @include('layouts.sidebar')
 
-    <main class="flex-1 p-6 ml-64 ">
+    <main class="flex-1 bg-gray-400/30 p-6 ml-64 ">
         <div class="max-w-4xl mx-auto p-3 bg-white rounded-xl shadow-sm border border-[#5A5252]/10 overflow-hidden">
             <!-- Header -->
             <div class="bg-[#5A5252]/5 p-6 border-b border-[#5A5252]/10">

@@ -84,7 +84,15 @@ class AttackServerController extends Controller
     
     public function execute(AttackServer $attack)
     {
-        // ... (kode execute Anda sudah benar) ...
+        // Update status jadi Pending
+        $attack->update(['status' => 'Pending']);
+
+        // Jalankan script Python
+        $scriptPath = '/path/to/launch_attack.py';
+        $command = "sudo python3 " . escapeshellarg($scriptPath) . " --id={$attack->id}";
+        shell_exec($command . " > /dev/null 2>/dev/null &");
+
+        return redirect()->back()->with('success', 'Attack execution started.');
     }
     
     // Anda bisa tambahkan method destroy di sini jika perlu
